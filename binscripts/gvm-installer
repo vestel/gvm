@@ -113,8 +113,9 @@ if [ -z "$GVM_NO_UPDATE_PROFILE" ] && [ "$?" != "0" ]; then
 fi
 
 if [ $GVM_NAME != "gvm" ] ; then
-  ln -s $GVM_ROOT/bin/gvm $GVM_ROOT/bin/$GVM_FUNC_NAME
-  sed -e "s|\\function gvm() {|function $GVM_FUNC_NAME() {|" <$GVM_ROOT/scripts/env/gvm >$GVM_ROOT/scripts/env/gvm
+  ln -s ${GVM_DEST}/$GVM_NAME/bin/gvm ${GVM_DEST}/$GVM_NAME/bin/$GVM_FUNC_NAME
+  GVM_SCRIPT_ENV=${GVM_DEST}/$GVM_NAME/scripts/env/gvm
+  sed -e "s|\\function gvm() {|function $GVM_FUNC_NAME() {|" <$GVM_SCRIPT_ENV >$GVM_SCRIPT_ENV
 fi
 
 echo "export GVM_ROOT=$GVM_DEST/$GVM_NAME" > "$GVM_DEST/$GVM_NAME/scripts/gvm"
