@@ -115,7 +115,8 @@ fi
 if [ $GVM_NAME != "gvm" ] ; then
   ln -s ${GVM_DEST}/$GVM_NAME/bin/gvm ${GVM_DEST}/$GVM_NAME/bin/$GVM_FUNC_NAME
   GVM_SCRIPT_ENV=${GVM_DEST}/$GVM_NAME/scripts/env/gvm
-  sed -e "s|\\function gvm() {|function $GVM_FUNC_NAME() {|" <$GVM_SCRIPT_ENV >$GVM_SCRIPT_ENV
+  echo "Update script $GVM_SCRIPT_ENV to $GVM_FUNC_NAME.."
+  cat $GVM_SCRIPT_ENV | sed -e "s|\ gvm() {| $GVM_FUNC_NAME() {|" | tee $GVM_SCRIPT_ENV
 fi
 
 echo "export GVM_ROOT=$GVM_DEST/$GVM_NAME" > "$GVM_DEST/$GVM_NAME/scripts/gvm"
